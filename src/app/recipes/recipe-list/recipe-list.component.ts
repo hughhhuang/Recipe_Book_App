@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Recipe} from '../recipe.model';
 
 @Component({
@@ -7,14 +7,21 @@ import {Recipe} from '../recipe.model';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
+  @Output() recipeWasClicked = new EventEmitter<Recipe>();
   recipes: Recipe[] = [
     new Recipe('Chicken Parmesan', 'breaded chicken with parm on top',
-      'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-202102-airfryerchickenparm-180-ls-1612561654.jpg?crop=1.00xw:1.00xh;0,0&resize=980:*')
+      '/assets/RecipeImages/chicken_parm.jpg'),
+    new Recipe('Chicken and Kale Soup', 'hearty, low-cal, protein-packed, delicious',
+      '/assets/RecipeImages/Chicken_and_Kale_Soup.png')
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onRecipeClicked(recipe: Recipe) {
+    this.recipeWasClicked.emit(recipe);
   }
 
 }
